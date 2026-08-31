@@ -1,14 +1,8 @@
-# Due to my limited time and energy, this project is no longer maintained. Feel free to fork it.
-# 由于本人精力有限, 此项目已停止维护, 欢迎fork
+# venera (lyhmono fork)
 
-# venera
-[![flutter](https://img.shields.io/badge/flutter-3.41.4-blue)](https://flutter.dev/)
-[![License](https://img.shields.io/github/license/venera-app/venera)](https://github.com/venera-app/venera/blob/master/LICENSE)
-[![stars](https://img.shields.io/github/stars/venera-app/venera?style=flat)](https://github.com/venera-app/venera/stargazers)
-
-[![Download](https://img.shields.io/github/v/release/venera-app/venera)](https://github.com/venera-app/venera/releases)
-[![AUR Version](https://img.shields.io/aur/version/venera-bin)](https://aur.archlinux.org/packages/venera-bin)
-[![F-Droid Version](https://img.shields.io/f-droid/v/com.github.wgh136.venera)](https://f-droid.org/packages/com.github.wgh136.venera/)
+> 本项目是 [venera-app/venera](https://github.com/venera-app/venera) 的复刻维护分支。
+> 原仓库已停止维护（原开发者精力有限，欢迎 fork），这里承接后续的修复与更新。
+> 由于原组织的 git 依赖仓库可能失效，构建依赖已逐步迁移到个人 fork（见 `pubspec.yaml`）。
 
 A comic reader that support reading local and network comics.
 
@@ -39,4 +33,3 @@ The Chinese translation of the manga tags is from this project.
 
 ## Headless Mode
 See [Headless Doc](doc/headless_doc.md)
-
