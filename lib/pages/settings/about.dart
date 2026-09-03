@@ -72,13 +72,6 @@ class _AboutSettingsState extends State<AboutSettings> {
             launchUrlString("https://github.com/lyhmono/venera");
           },
         ).toSliver(),
-        ListTile(
-          title: const Text("Telegram"),
-          trailing: const Icon(Icons.open_in_new),
-          onTap: () {
-            launchUrlString("https://t.me/venera_release");
-          },
-        ).toSliver(),
       ],
     );
   }
