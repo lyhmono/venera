@@ -135,6 +135,8 @@ jobs:
         with:
           name: deb_arm64_build
           path: outputs
+      - name: Collect release files (exclude debug builds)
+        run: rm -f outputs/*debug*
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: v1.6.4
@@ -146,4 +148,4 @@ jobs:
             outputs/*.zst
             outputs/*.AppImage
         env:
-          GITHUB_TOKEN: ${{ secrets.ACTION_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
