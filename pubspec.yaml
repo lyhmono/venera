@@ -48,7 +48,7 @@ dependencies:
     git:
       url: https://github.com/lyhmono/flutter_inappwebview
       path: flutter_inappwebview
-      ref: 3ef899b3db57c911b080979f1392253b835f98ab
+      ref: 09500c92
   app_links: ^7.0.0
   sliver_tools: ^0.2.12
   flutter_file_dialog: ^3.0.3
