@@ -112,6 +112,8 @@ jobs:
     runs-on: ubuntu-22.04
     needs: [Build_Android, Build_Windows, Build_Linux, Build_Linux_ARM64]
     if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'  # workflow_dispatch 用于 fork 仓库 release 事件不触发时的手动发布
+    permissions:
+      contents: write
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -135,7 +137,7 @@ jobs:
           path: outputs
       - uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.event.release.tag_name || 'v1.6.4' }}
+          tag_name: v1.6.4
           files: |
             outputs/*.apk
             outputs/*.zip
