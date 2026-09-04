@@ -32,6 +32,16 @@ set(CMAKE_CXX_FLAGS_PROFILE "${CMAKE_CXX_FLAGS_RELEASE}")
 # Use Unicode for all projects.
 add_definitions(-DUNICODE -D_UNICODE)
 
+# CppWinRT nuget targets inject the legacy /await compiler option into
+# stdcpp17 projects (see Microsoft.Windows.CppWinRT.targets), and VS 2026
+# MSVC makes <experimental/coroutine> a hard error (STL1011). Newer CppWinRT
+# versions honor CppWinRTEnableLegacyCoroutines=false; older plugin
+# toolchains (e.g. local_auth_windows) do not, so silence the deprecation
+# error globally as well.
+add_definitions(-D_SILENCE_EXPERIMENTAL_COROUTINE_DEPRECATION_WARNINGS)
+set(CPPWINRT_ENABLE_LEGACY_COROUTINES OFF)
+
+
 # Compilation settings that should be applied to most targets.
 #
 # Be cautious about adding new options here, as plugins use this function by

@@ -332,8 +332,8 @@ packages:
     dependency: "direct main"
     description:
       path: flutter_inappwebview
-      ref: "3ef899b3db57c911b080979f1392253b835f98ab"
-      resolved-ref: "3ef899b3db57c911b080979f1392253b835f98ab"
+      ref: "09500c92"
+      resolved-ref: "09500c92"
       url: "https://github.com/lyhmono/flutter_inappwebview"
     source: git
     version: "6.2.0-beta.3"
@@ -341,8 +341,8 @@ packages:
     dependency: transitive
     description:
       path: flutter_inappwebview_android
-      ref: "3ef899b3db57c911b080979f1392253b835f98ab"
-      resolved-ref: "3ef899b3db57c911b080979f1392253b835f98ab"
+      ref: "09500c92"
+      resolved-ref: "09500c92"
       url: "https://github.com/lyhmono/flutter_inappwebview"
     source: git
     version: "1.2.0-beta.3"
@@ -358,8 +358,8 @@ packages:
     dependency: transitive
     description:
       path: flutter_inappwebview_ios
-      ref: "3ef899b3db57c911b080979f1392253b835f98ab"
-      resolved-ref: "3ef899b3db57c911b080979f1392253b835f98ab"
+      ref: "09500c92"
+      resolved-ref: "09500c92"
       url: "https://github.com/lyhmono/flutter_inappwebview"
     source: git
     version: "1.2.0-beta.3"
@@ -367,8 +367,8 @@ packages:
     dependency: transitive
     description:
       path: flutter_inappwebview_macos
-      ref: "3ef899b3db57c911b080979f1392253b835f98ab"
-      resolved-ref: "3ef899b3db57c911b080979f1392253b835f98ab"
+      ref: "09500c92"
+      resolved-ref: "09500c92"
       url: "https://github.com/lyhmono/flutter_inappwebview"
     source: git
     version: "1.2.0-beta.3"
@@ -376,8 +376,8 @@ packages:
     dependency: transitive
     description:
       path: flutter_inappwebview_platform_interface
-      ref: "3ef899b3db57c911b080979f1392253b835f98ab"
-      resolved-ref: "3ef899b3db57c911b080979f1392253b835f98ab"
+      ref: "09500c92"
+      resolved-ref: "09500c92"
       url: "https://github.com/lyhmono/flutter_inappwebview"
     source: git
     version: "1.4.0-beta.3"
@@ -385,8 +385,8 @@ packages:
     dependency: transitive
     description:
       path: flutter_inappwebview_web
-      ref: "3ef899b3db57c911b080979f1392253b835f98ab"
-      resolved-ref: "3ef899b3db57c911b080979f1392253b835f98ab"
+      ref: "09500c92"
+      resolved-ref: "09500c92"
       url: "https://github.com/lyhmono/flutter_inappwebview"
     source: git
     version: "1.2.0-beta.3"
@@ -394,8 +394,8 @@ packages:
     dependency: transitive
     description:
       path: flutter_inappwebview_windows
-      ref: "3ef899b3db57c911b080979f1392253b835f98ab"
-      resolved-ref: "3ef899b3db57c911b080979f1392253b835f98ab"
+      ref: "09500c92"
+      resolved-ref: "09500c92"
       url: "https://github.com/lyhmono/flutter_inappwebview"
     source: git
     version: "0.7.0-beta.3"
