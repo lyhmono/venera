@@ -129,17 +129,16 @@ jobs:
           path: outputs
       - uses: actions/download-artifact@v4
         with:
-          name: arch_build
-          path: outputs
-      - uses: actions/download-artifact@v4
-        with:
           name: deb_arm64_build
           path: outputs
       - name: Collect release files (exclude debug builds)
         run: rm -f outputs/*debug*
+      - name: Resolve release tag from pubspec version
+        id: ver
+        run: echo "tag=v$(grep '^version:' pubspec.yaml | awk '{print $2}' | cut -d+ -f1)" >> "$GITHUB_OUTPUT"
       - uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ steps.ver.outputs.tag }}
+          tag_name: ${{ steps.ver.outputs.tag }}
           files: |
             outputs/*.apk
             outputs/*.zip
