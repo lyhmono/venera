@@ -487,7 +487,7 @@ packages:
     dependency: "direct dev"
     description:
       path: "."
-      ref: HEAD
+      ref: 3777c91b6b1cc0b7c03357c67ca216d4313c3db5
       resolved-ref: "3777c91b6b1cc0b7c03357c67ca216d4313c3db5"
       url: "https://github.com/lyhmono/flutter_to_debian.git"
     source: git
