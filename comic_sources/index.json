@@ -243,5 +243,12 @@
     "fileName": "mh250.js",
     "key": "mh250",
     "version": "1.0.0"
+  },
+  {
+    "name": "漫画家",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/mhjia.js",
+    "fileName": "mhjia.js",
+    "key": "mhjia",
+    "version": "1.0.0"
   }
 ]

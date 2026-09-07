@@ -1,9 +1,9 @@
 # Venera 漫画源合集
 
-35 个源，全部经沙箱 + 双网络环境（容器直连 / 代理）健康检查。
+36 个源，全部经沙箱 + 双网络环境（容器直连 / 代理）健康检查。
 
 > 已剔除 7 个双网络环境均不可达的死源（详见维护一节）。
-> 2026-09 新增 4 源（一次元书源移植）：神奇漫画 / 武芊漫画 / 漫画1234 / 250漫画。
+> 2026-09 新增 5 源（一次元书源移植）：神奇漫画 / 武芊漫画 / 漫画1234 / 250漫画 / 漫画家。
 
 ## 订阅方式
 
@@ -24,7 +24,7 @@ https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/index.json
 
 ## 源列表
 
-### 我维护的 8 个源（本仓库自研）
+### 我维护的 9 个源（本仓库自研）
 
 | 源 | 状态 | 说明 |
 |---|---|---|
@@ -36,6 +36,7 @@ https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/index.json
 | wuqian.js 武芊漫画 | ✅ | 一次元移植（mkzcdn 纯 API）；真搜索 18 结果/15 章/10 图 |
 | mh1234m.js 漫画1234 | ✅ | 一次元移植（m.wmh1234.com）；真搜索 18 结果/284 章/21 图；/go/ 中转页跳 reader 图床 |
 | mh250.js 250漫画 | ✅ | 一次元移植（mh250.com）；搜索路径动态轮换（b41→ae6→6fb，源内自动提取 msearchurl）；100 结果/8 章/6 图 |
+| mhjia.js 漫画家 | ✅ | 一次元移植（mhjia.com，韩漫为主）；mihomo 代理验证 20 结果/15 章/51 图；⚠️ 站点掐数据中心 IP，家宽网络直接用 |
 
 ### 官方池（27 个，上游 venera-app/venera-configs 镜像）
 
@@ -89,5 +90,5 @@ https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/index.json
 |---|---|
 | 820 G站 | 情报并入 gmh.js v1.3（移动端真搜索），不再单独建源 |
 | 922/925/912/905 | 已移植为 mh1234m / sqmh / wuqian / mh250（全部沙箱验证） |
-| 891 漫画家 | 不发布：站点对容器出口 IP 掐连接（三代理+直连全灭），无法验证 |
-| 866 YYDS | 不发布：服务端区域封锁（"The region has been denied"），双路全死 |
+| 891 漫画家 | 已移植为 mhjia（mihomo 换 IP 后全链路验证 20/15/51；站点掐数据中心 IP，家宽可用） |
+| 866 YYDS | 不发布：服务端区域封锁（"The region has been denied"），双路+mihomo 全 403 |
