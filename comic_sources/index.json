@@ -1,0 +1,261 @@
+[
+  {
+    "name": "拷贝漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/copy_manga.js",
+    "fileName": "copy_manga.js",
+    "key": "copy_manga",
+    "version": "1.4.2"
+  },
+  {
+    "name": "拷贝漫画(多账号)",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/copy_manga_multi_accounts.js",
+    "fileName": "copy_manga_multi_accounts.js",
+    "key": "copy_manga",
+    "version": "1.4.1"
+  },
+  {
+    "name": "Komiic",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/komiic.js",
+    "fileName": "komiic.js",
+    "key": "Komiic",
+    "version": "1.0.3"
+  },
+  {
+    "name": "包子漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/baozi.js",
+    "fileName": "baozi.js",
+    "key": "baozi",
+    "version": "1.1.6"
+  },
+  {
+    "name": "Picacg",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/picacg.js",
+    "fileName": "picacg.js",
+    "key": "picacg",
+    "version": "1.0.6"
+  },
+  {
+    "name": "nhentai",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/nhentai.js",
+    "fileName": "nhentai.js",
+    "key": "nhentai",
+    "version": "1.1.0"
+  },
+  {
+    "name": "紳士漫畫",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/wnacg.js",
+    "fileName": "wnacg.js",
+    "key": "wnacg",
+    "version": "1.0.5"
+  },
+  {
+    "name": "ehentai",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/ehentai.js",
+    "fileName": "ehentai.js",
+    "key": "ehentai",
+    "version": "1.1.8"
+  },
+  {
+    "name": "禁漫天堂",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/jm.js",
+    "fileName": "jm.js",
+    "key": "jm",
+    "version": "1.4.0"
+  },
+  {
+    "name": "MangaDex",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/manga_dex.js",
+    "fileName": "manga_dex.js",
+    "key": "manga_dex",
+    "version": "1.2.0"
+  },
+  {
+    "name": "爱看漫",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/ikmmh.js",
+    "fileName": "ikmmh.js",
+    "key": "ikmmh",
+    "version": "1.0.6"
+  },
+  {
+    "name": "少年ジャンプ＋",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/shonen_jump_plus.js",
+    "fileName": "shonen_jump_plus.js",
+    "key": "shonen_jump_plus",
+    "version": "1.1.1"
+  },
+  {
+    "name": "hitomi.la",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/hitomi.js",
+    "fileName": "hitomi.js",
+    "key": "hitomi",
+    "version": "1.1.2"
+  },
+  {
+    "name": "comick",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/comick.js",
+    "fileName": "comick.js",
+    "key": "comick",
+    "version": "1.2.0"
+  },
+  {
+    "name": "优酷漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/ykmh.js",
+    "fileName": "ykmh.js",
+    "key": "ykmh",
+    "version": "1.0.0"
+  },
+  {
+    "name": "再漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/zaimanhua.js",
+    "fileName": "zaimanhua.js",
+    "key": "zaimanhua",
+    "version": "1.0.2"
+  },
+  {
+    "name": "漫画柜",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/manhuagui.js",
+    "fileName": "manhuagui.js",
+    "key": "ManHuaGui",
+    "version": "1.2.1"
+  },
+  {
+    "name": "漫蛙吧",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/manwaba.js",
+    "fileName": "manwaba.js",
+    "key": "manwaba",
+    "version": "1.0.2"
+  },
+  {
+    "name": "Lanraragi",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/lanraragi.js",
+    "fileName": "lanraragi.js",
+    "key": "lanraragi",
+    "version": "1.1.0"
+  },
+  {
+    "name": "Komga",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/komga.js",
+    "fileName": "komga.js",
+    "key": "komga",
+    "version": "1.0.0"
+  },
+  {
+    "name": "カドコミ",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/comic_walker.js",
+    "fileName": "comic_walker.js",
+    "key": "comic_walker",
+    "version": "1.0.1"
+  },
+  {
+    "name": "漫画1234",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/mh1234.js",
+    "fileName": "mh1234.js",
+    "key": "mh1234",
+    "version": "1.0.0"
+  },
+  {
+    "name": "CCC追漫台",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/ccc.js",
+    "fileName": "ccc.js",
+    "key": "ccc",
+    "version": "1.0.1"
+  },
+  {
+    "name": "GoDa漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/goda.js",
+    "fileName": "goda.js",
+    "key": "goda",
+    "version": "1.2.1"
+  },
+  {
+    "name": "18漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/mh18.js",
+    "fileName": "mh18.js",
+    "key": "mh18",
+    "version": "1.0.0"
+  },
+  {
+    "name": "漫小肆",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/mxs.js",
+    "fileName": "mxs.js",
+    "key": "mxs",
+    "version": "1.0.0"
+  },
+  {
+    "name": "漫画人",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/manhuaren.js",
+    "fileName": "manhuaren.js",
+    "key": "manhuaren",
+    "version": "1.0.0"
+  },
+  {
+    "name": "H-Comic",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/hcomic.js",
+    "fileName": "hcomic.js",
+    "key": "hcomic",
+    "version": "1.0.0"
+  },
+  {
+    "name": "jcomic.net",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/jcomic.js",
+    "fileName": "jcomic.js",
+    "key": "jcomic",
+    "version": "1.0.0"
+  },
+  {
+    "name": "热辣漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/hot_manga.js",
+    "fileName": "hot_manga.js",
+    "key": "hot_manga",
+    "version": "1.0.0"
+  },
+  {
+    "name": "Kavita",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/kavita.js",
+    "fileName": "kavita.js",
+    "key": "kavita",
+    "version": "1.0.0"
+  },
+  {
+    "name": "嗨皮漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/happy.js",
+    "fileName": "happy.js",
+    "key": "happy",
+    "version": "1.0.0"
+  },
+  {
+    "name": "MYCOMIC",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/mycomic.js",
+    "fileName": "mycomic.js",
+    "key": "mycomic",
+    "version": "1.1.0"
+  },
+  {
+    "name": "G社漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/gmh.js",
+    "fileName": "gmh.js",
+    "key": "gmh",
+    "version": "1.2.0"
+  },
+  {
+    "name": "瓜子漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/guazi.js",
+    "fileName": "guazi.js",
+    "key": "guazi",
+    "version": "1.1.0"
+  },
+  {
+    "name": "W漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/wmanhua.js",
+    "fileName": "wmanhua.js",
+    "key": "wmanhua",
+    "version": "1.1.0"
+  },
+  {
+    "name": "妙趣漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/miaoqu.js",
+    "fileName": "miaoqu.js",
+    "key": "miaoqumh",
+    "version": "1.1.0"
+  }
+]
