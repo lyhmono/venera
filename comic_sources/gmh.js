@@ -152,7 +152,7 @@ class Gmh extends ComicSource {
 
   name = "G社漫画";
   key = "gmh";
-  version = "1.2.0";
+  version = "1.3.0";
   minAppVersion = "1.0.0";
   url = WEB;
 
@@ -221,7 +221,8 @@ class Gmh extends ComicSource {
   };
 
   // ---------- 搜索 ----------
-  // 增强: 输入漫画页URL/slug 直进详情；否则走站内"搜索"(实为推荐流)并优先标题匹配
+  // 增强: 输入漫画页URL/slug 直进详情；否则走移动端真搜索 /s/{关键词}
+  // (v1.3: 桌面版 /s/?q= 是推荐流，移动版 /s/{kw} 才是真搜索——实测"斗罗"精确命中斗罗系列)
   search = {
     load: async (keyword, options, page) => {
       // 1) slug/URL 直进
@@ -241,34 +242,11 @@ class Gmh extends ComicSource {
           }
         } catch (e) { /* 继续站内搜 */ }
       }
-      // 2) 该站搜索是推荐流(实测任意词同结果)，先拿推荐池按标题匹配
-      var url = WEB + "/s/?q=" + encodeURIComponent(keyword) + (page > 1 ? "&p=" + page : "");
+      // 2) 移动端真搜索
+      var url = WEB + "/s/" + encodeURIComponent(keyword) + (page > 1 ? "?p=" + page : "");
       var res = await Network.get(url, { headers: HDRS });
       if (res.status !== 200) throw "HTTP " + res.status;
       var comics = parseComicList(res.body);
-      var norm = function(t) { return (t || "").toLowerCase().replace(/[\s~～·:：,，.。!！?？\-《》〈〉()（）【】'"’“]/g, ""); };
-      var kw = norm(keyword);
-      var exact = [], fuzzy = [], seenK = {};
-      for (var ci = 0; ci < comics.length; ci++) {
-        var c = comics[ci];
-        if (seenK[c.id]) continue;
-        seenK[c.id] = true;
-        var nt = norm(c.title);
-        if (nt === kw) exact.push(c);
-        else if (kw && (nt.indexOf(kw) >= 0 || kw.indexOf(nt) >= 0)) fuzzy.push(c);
-      }
-      var ordered = exact.concat(fuzzy);
-      var isMatched = ordered.length > 0;
-      if (isMatched) comics = ordered;
-      // ⚠️ 该站搜索是假的：任意关键词都返回同一批推荐（已验证 "传武"/"海贼王"/"斗罗大陆" 结果全同）
-      // 在结果 description 里给用户打标记，避免误以为搜索没工作
-      if (!isMatched && comics.length > 0 && page === 1) {
-        comics = comics.map(c => ({
-          id: c.id, title: c.title, subtitle: c.subtitle,
-          cover: c.cover, tags: c.tags,
-          description: (c.description || '') + "\\n\\n⚠️ 本站搜索为推荐流，返回内容可能与关键词无关"
-        }));
-      }
       return { comics, maxPage: 1 };
     }
   };

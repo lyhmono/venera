@@ -186,7 +186,7 @@
     "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/gmh.js",
     "fileName": "gmh.js",
     "key": "gmh",
-    "version": "1.2.0"
+    "version": "1.3.0"
   },
   {
     "name": "瓜子漫画",
@@ -214,6 +214,34 @@
     "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/baihehui.js",
     "fileName": "baihehui.js",
     "key": "baihehui",
+    "version": "1.0.0"
+  },
+  {
+    "name": "神奇漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/sqmh.js",
+    "fileName": "sqmh.js",
+    "key": "sqmh",
+    "version": "1.0.0"
+  },
+  {
+    "name": "武芊漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/wuqian.js",
+    "fileName": "wuqian.js",
+    "key": "wuqian",
+    "version": "1.0.0"
+  },
+  {
+    "name": "漫画1234",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/mh1234m.js",
+    "fileName": "mh1234m.js",
+    "key": "mh1234m",
+    "version": "1.0.0"
+  },
+  {
+    "name": "250漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/mh250.js",
+    "fileName": "mh250.js",
+    "key": "mh250",
     "version": "1.0.0"
   }
 ]
