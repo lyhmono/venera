@@ -1,6 +1,6 @@
 # Venera 漫画源合集
 
-37 个源，全部经沙箱 + 双网络环境（容器直连 / 代理）健康检查。
+38 个源，全部经沙箱 + 双网络环境（容器直连 / 代理）健康检查。
 
 ## 订阅方式
 
@@ -36,6 +36,10 @@ https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/index.json
 |---|---|---|
 | hcomic.js | ✅ | 沙箱全链路通 |
 | jcomic.js | ✅ | 沙箱全链路通 |
+| baihehui.js | 🔒 | 上游新源（百合会 yamibo.com）；explore 分区可达，搜索需站点登录 |
+| hitomi.js | ⚠️ | reader 接口已演进：galleryblock 现返回 404 页，上游解析待适配 |
+| manga_dex.js | ⚠️ | explore 分区可达；搜索 API 演进中，沙箱解析失败 |
+| ykmh.js | ⛔ | 全站 403（双网络环境均拦截） |
 | komiic.js | ✅ | 221 章 194 图 |
 | manwaba.js | ✅ | 漫蛙吧 |
 | baozi.js | ⚠️ | 77 结果 1187 章；镜像图床需正确线路 |

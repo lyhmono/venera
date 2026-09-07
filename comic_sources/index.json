@@ -53,7 +53,7 @@
     "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/ehentai.js",
     "fileName": "ehentai.js",
     "key": "ehentai",
-    "version": "1.1.8"
+    "version": "1.2.0"
   },
   {
     "name": "禁漫天堂",
@@ -123,14 +123,14 @@
     "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/manwaba.js",
     "fileName": "manwaba.js",
     "key": "manwaba",
-    "version": "1.0.2"
+    "version": "1.0.3"
   },
   {
     "name": "Lanraragi",
     "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/lanraragi.js",
     "fileName": "lanraragi.js",
     "key": "lanraragi",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   {
     "name": "Komga",
@@ -257,5 +257,12 @@
     "fileName": "miaoqu.js",
     "key": "miaoqumh",
     "version": "1.1.0"
+  },
+  {
+    "name": "百合会",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/baihehui.js",
+    "fileName": "baihehui.js",
+    "key": "baihehui",
+    "version": "1.0.0"
   }
 ]
