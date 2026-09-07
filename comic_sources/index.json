@@ -77,20 +77,6 @@
     "version": "1.0.6"
   },
   {
-    "name": "少年ジャンプ＋",
-    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/shonen_jump_plus.js",
-    "fileName": "shonen_jump_plus.js",
-    "key": "shonen_jump_plus",
-    "version": "1.1.1"
-  },
-  {
-    "name": "hitomi.la",
-    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/hitomi.js",
-    "fileName": "hitomi.js",
-    "key": "hitomi",
-    "version": "1.1.2"
-  },
-  {
     "name": "comick",
     "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/comick.js",
     "fileName": "comick.js",
@@ -98,25 +84,11 @@
     "version": "1.2.0"
   },
   {
-    "name": "优酷漫画",
-    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/ykmh.js",
-    "fileName": "ykmh.js",
-    "key": "ykmh",
-    "version": "1.0.0"
-  },
-  {
     "name": "再漫画",
     "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/zaimanhua.js",
     "fileName": "zaimanhua.js",
     "key": "zaimanhua",
     "version": "1.0.2"
-  },
-  {
-    "name": "漫画柜",
-    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/manhuagui.js",
-    "fileName": "manhuagui.js",
-    "key": "ManHuaGui",
-    "version": "1.2.1"
   },
   {
     "name": "漫蛙吧",
@@ -137,20 +109,6 @@
     "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/komga.js",
     "fileName": "komga.js",
     "key": "komga",
-    "version": "1.0.0"
-  },
-  {
-    "name": "カドコミ",
-    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/comic_walker.js",
-    "fileName": "comic_walker.js",
-    "key": "comic_walker",
-    "version": "1.0.1"
-  },
-  {
-    "name": "漫画1234",
-    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/mh1234.js",
-    "fileName": "mh1234.js",
-    "key": "mh1234",
     "version": "1.0.0"
   },
   {
@@ -214,13 +172,6 @@
     "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/kavita.js",
     "fileName": "kavita.js",
     "key": "kavita",
-    "version": "1.0.0"
-  },
-  {
-    "name": "嗨皮漫画",
-    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/happy.js",
-    "fileName": "happy.js",
-    "key": "happy",
     "version": "1.0.0"
   },
   {

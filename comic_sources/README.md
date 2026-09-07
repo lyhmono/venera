@@ -1,6 +1,8 @@
 # Venera 漫画源合集
 
-38 个源，全部经沙箱 + 双网络环境（容器直连 / 代理）健康检查。
+31 个源，全部经沙箱 + 双网络环境（容器直连 / 代理）健康检查。
+
+> 已剔除 7 个双网络环境均不可达的死源（详见维护一节）。
 
 ## 订阅方式
 
@@ -30,16 +32,14 @@ https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/index.json
 | wmanhua.js W漫画 | ✅ | 站点无真搜索（假推荐流）；URL/ID 直进 + 爬站标题匹配兜底；章节走官方内部 API 全量 |
 | miaoqu.js 妙趣漫画 | ✅ | 无搜索接口；slug/URL 直进 + 首页/分类池匹配；图片走站点 jsjiami 解密 |
 
-### 官方池（33 个，上游 venera-app/venera-configs）
+### 官方池（27 个，上游 venera-app/venera-configs 镜像）
 
 | 源 | 状态 | 备注 |
 |---|---|---|
 | hcomic.js | ✅ | 沙箱全链路通 |
 | jcomic.js | ✅ | 沙箱全链路通 |
 | baihehui.js | 🔒 | 上游新源（百合会 yamibo.com）；explore 分区可达，搜索需站点登录 |
-| hitomi.js | ⚠️ | reader 接口已演进：galleryblock 现返回 404 页，上游解析待适配 |
 | manga_dex.js | ⚠️ | explore 分区可达；搜索 API 演进中，沙箱解析失败 |
-| ykmh.js | ⛔ | 全站 403（双网络环境均拦截） |
 | komiic.js | ✅ | 221 章 194 图 |
 | manwaba.js | ✅ | 漫蛙吧 |
 | baozi.js | ⚠️ | 77 结果 1187 章；镜像图床需正确线路 |
@@ -50,14 +50,11 @@ https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/index.json
 | nhentai.js / wnacg.js | ⚠️ | 结果通；图片需 cookies/会员 |
 | ikmmh.js / lanraragi.js / mxs.js | ⚠️ | 端点 200 但"海贼"0 结果（关键词策略/演示库空） |
 | ccc.js | ⚠️ | 搜索返回 HTML（接口或已改版） |
-| comick.js | 🔒 | 搜索 422（参数随 API 演进需上游适配） |
+| comick.js | ⚠️ | 复查翻案：双网络环境 50 结果全通（旧 422 为历史误判）；图片 CDN 未验证 |
+| zaimanhua.js | ⚠️ | 复查翻案：直连 20 结果通（此前容器代理双挂为误判，已从 ⛔ 更正） |
 | ehentai.js | 🔒 | 无独立搜索（登录态走 e-hentai 逻辑） |
 | picacg.js / komga.js / kavita.js | 🔒 | 需登录（第三方服务/自托管） |
 | mycomic.js | 🔒 | Cloudflare 验证拦截 |
-| shonen_jump_plus.js | ⛔ | 端点 410（该站已关公开接口） |
-| comic_walker.js | ⛔ | 搜索返回 HTML 非 JSON（接口已改） |
-| happy.js | ⛔ | m.happymh.com TLS 握手不通（站死或强墙） |
-| manhuagui.js / mh1234.js / zaimanhua.js | ⛔ | 域名解析/连接失败（站已迁移或死） |
 | mh18.js | ⚠️ | 403 需 CF 浏览器过盾 |
 | jm.js | ⚠️ | 域名列表加密刷新（容器缺 AES 完整链，真机大概率正常） |
 
@@ -66,5 +63,17 @@ https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/index.json
 
 ## 维护
 
-- 官方 33 源为上游 venera-app/venera-configs 的镜像，需要更新时手动 `cp` 覆盖本目录即可
-- index.json 含全部 37 源的 jsdelivr 直链
+- 官方池为上游 venera-app/venera-configs 的镜像，需要更新时手动 `cp` 覆盖本目录即可
+- index.json 含全部 31 源的 jsdelivr 直链
+
+### 已剔除的死源（2026-09 复查，双网络环境均不可达）
+
+| 源 | 死因 |
+|---|---|
+| shonen_jump_plus.js | 端点 410（公开接口已关） |
+| comic_walker.js | access_token 接口已废 |
+| happy.js | TLS 双路握手不通 |
+| manhuagui.js | 双路连接失败（站迁移或死） |
+| mh1234.js | 页面可达但解析全崩（站结构已变） |
+| ykmh.js | 全站 403 双路拦截 |
+| hitomi.js | 旧 reader 接口已废（galleryblock 404） |
