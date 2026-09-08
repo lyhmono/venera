@@ -1,6 +1,6 @@
 # Venera 漫画源合集
 
-45 个源，全部经沙箱 + 双网络环境（容器直连 / 代理）健康检查。
+45 个源，全部经沙箱 + 双网络环境（容器直连 / mihomo 代理）健康检查。
 
 > 已剔除 7 个双网络环境均不可达的死源（详见维护一节）。
 > 2026-09 新增 14 源（一次元 130 包移植）：神奇漫画 / 武芊漫画 / 漫画1234 / 250漫画 / 漫画家 / 92漫画 / 漫画屋 / 顶漫画 / MangaRead / 鸟鸟韩漫 / MissKon图集 / Buondua图集 / Everia图集 / x漫画。
@@ -47,39 +47,43 @@ https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/index.json
 | everia.js Everia图集 | ✅ | 一次元移植（日韩写真 WP 站）；japan/korea/cosplay 分区；16 结果/38 探索/21 图 |
 | xmanhua.js x漫画 | ✅ | 一次元移植（xmanhua.com 日漫繁体站）；chapterimage.ashx eval-packer 解包（纯 JS 实现）；12 结果/234 章/2 图 |
 
-### 官方池（27 个，上游 venera-app/venera-configs 镜像）
+### 官方池（27 个，上游 venera-app/venera-configs 镜像，2026-09-08 全量复查）
 
 | 源 | 状态 | 备注 |
 |---|---|---|
-| hcomic.js | ✅ | 沙箱全链路通 |
-| jcomic.js | ✅ | 沙箱全链路通 |
-| baihehui.js | 🔒 | 上游新源（百合会 yamibo.com）；explore 分区可达，搜索需站点登录 |
-| manga_dex.js | ⚠️ | explore 分区可达；搜索 API 演进中，沙箱解析失败 |
-| komiic.js | ✅ | 221 章 194 图 |
-| manwaba.js | ✅ | 漫蛙吧 |
-| baozi.js | ⚠️ | 77 结果 1187 章；镜像图床需正确线路 |
-| goda.js | ⚠️ | 章节抽屉走 API（沙箱被 Referer 校验挡，真机正常） |
-| copy_manga.js / copy_manga_multi_accounts.js | ⚠️ | 启动自取 network2 API 域名，容器内 TLS reset，真机大概率正常 |
-| hot_manga.js | ⚠️ | 结果+详情通；图片 CDN 未验证 |
-| manhuaren.js | ⚠️ | 结果+详情通；连载分组摊平小 bug 上游未修 |
-| nhentai.js / wnacg.js | ⚠️ | 结果通；图片需 cookies/会员 |
-| ikmmh.js / lanraragi.js / mxs.js | ⚠️ | 端点 200 但"海贼"0 结果（关键词策略/演示库空） |
-| ccc.js | ⚠️ | 搜索返回 HTML（接口或已改版） |
-| comick.js | ⚠️ | 复查翻案：双网络环境 50 结果全通（旧 422 为历史误判）；图片 CDN 未验证 |
-| zaimanhua.js | ⚠️ | 复查翻案：直连 20 结果通（此前容器代理双挂为误判，已从 ⛔ 更正） |
-| ehentai.js | 🔒 | 无独立搜索（登录态走 e-hentai 逻辑） |
-| picacg.js / komga.js / kavita.js | 🔒 | 需登录（第三方服务/自托管） |
-| mycomic.js | 🔒 | Cloudflare 验证拦截 |
-| mh18.js | ⚠️ | 403 需 CF 浏览器过盾 |
-| jm.js | ⚠️ | 域名列表加密刷新（容器缺 AES 完整链，真机大概率正常） |
+| jm.js 禁漫天堂 | ✅ | v1.4.2：图片分流先探活再采用（官方轮换池混死域已根治）；搜索 80/详情/61 图 |
+| comick.js | ✅ | 50 结果/2548 章/51 图全链路（复查翻案，旧 0 图为测试工具 epId 缺陷误判） |
+| komiic.js | ✅ | mihomo 验证 67 结果/94 图 |
+| jcomic.js | ✅ | mihomo 验证 30 结果/99 图 |
+| hcomic.js | ✅ | mihomo 验证 10 结果/40 图 |
+| manwaba.js 漫蛙吧 | ✅ | mihomo 验证 20 结果/302 章/11 图 |
+| nhentai.js | ✅ | mihomo 验证 25 结果/221 图（单章本走 maxPage 字段，ch=0 为设计） |
+| wnacg.js 紳士漫畫 | ✅ | mihomo 验证 24 结果/20 图 |
+| zaimanhua.js 再漫画 | ⚠️ | v1.1 loadEp 加 encodeURIComponent；书库大批下架（20 结果仅 1 本活），站点问题非源问题；活书全链路 16/20 章/56 图 |
+| mxs.js 漫小肆 | ✅ | 8 结果/144 章/100 图（沙箱补 Comment stub 后全绿） |
+| ikmmh.js 爱看漫 | ✅ | 100 结果/29 图 |
+| goda.js GoDa漫画 | ✅ | 30 结果/4 章/181 图 |
+| hot_manga.js 热辣漫画 | ✅ | 20 结果/53 章/181 图（复测通过，旧 404 为章节 slug 临时性） |
+| manhuaren.js 漫画人 | ⚠️ | 搜索 22 结果/详情通；站点重构详情页（连载页 URL 字段解析 null），上游待修 |
+| baozi.js 包子漫画 | ⚠️ | 搜索 89/详情 1187 章；图片 API appcn.baozimh.com 对 Node TLS 指纹 403（curl/真机 Dart 正常），真机可用性未知 |
+| baihehui.js 百合会 | 🔒 | explore 分区可达（24 卡片）；搜索跳登录页，需站点账号 |
+| manga_dex.js MangaDex | ⚠️ | explore 3 分区可达；搜索 API "Network response was not ok"（mihomo 亦然），疑似 API 演进，上游待修 |
+| ccc.js CCC追漫台 | ⚠️ | explore 24 卡片；搜索 API 500 + 返回 HTML，接口改版，上游待修 |
+| copy_manga.js / copy_manga_multi_accounts.js 拷贝漫画 | ⛔ | 全部已知域"服務器升級中"404 页；proxy 亦 404，站暂死（历史上活过，待其恢复后复查） |
+| picacg.js Picacg | 🔒 | API 可达但需会员登录（"Not logged in"） |
+| mh18.js 18漫画 | ✅ | v2.0.0 整站重写：18mh.org 死→18mh.net 新模板；搜索 48/详情/23 图全链路（mihomo 验证） |
+| ehentai.js | 🔒 | 无独立搜索接口（走 e-hentai 登录态逻辑）；上游设计如此 |
+| komga.js / kavita.js / lanraragi.js | 🔒 | 自托管服务，需用户自己的服务器 |
+| mycomic.js | 🔒 | Cloudflare 浏览器验证拦截 |
 
-> 判定口径：容器代理能达且逻辑通过 = 可用；登录/CF 门槛 ≠ 坏；两环境都连不上 = 判死。
-> 官方源问题请提 https://github.com/venera-app/venera-configs ，自研 4 源问题提本仓库 issue。
+> 判定口径：容器直连或 mihomo 代理任一路全链路通过 = ✅/⚠️ 可用；登录/CF 门槛 ≠ 坏；两路都连不上且无登录理由 = 判死。
+> 官方源问题请提 https://github.com/venera-app/venera-configs ，自研 18 源问题提本仓库 issue。
 
 ## 维护
 
 - 官方池为上游 venera-app/venera-configs 的镜像，需要更新时手动 `cp` 覆盖本目录即可
-- index.json 含全部 31 源的 jsdelivr 直链
+- index.json 含全部 45 源的 jsdelivr 直链
+- 沙箱检查器：`/opt/data/check_one.js`（需 cheerio + undici），单章本与 grouped-chapters 已支持
 
 ### 已剔除的死源（2026-09 复查，双网络环境均不可达）
 
@@ -104,10 +108,16 @@ https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/index.json
 | 37/38 x漫画 | 已移植为 xmanhua（eval-packer 纯 JS 解包，mihomo 验证 12/234/2） |
 | 奇漫屋 qmanwu2 | 不发布：指纹 JS 风控盾，容器无法过验证 |
 
-### jm.js 禁漫天堂维护记录（v1.4.1, 2026-09）
+### jm.js 禁漫天堂维护记录（v1.4.2, 2026-09）
 
-- API fallback 换为云鹤提供的新分流（实测直连+mihomo 全 200）：cdnbea.net / cdnhth.net / cdngwc.cc / cdnhth.club
-- 图片兜底池 6 域（9 个里剔除 3 个死域：jmapiproxy3.net / jmapiproxyl.cc x2）
-- refreshImgUrl 加 try-catch：API 拿不到 img_host 时轮换兜底池，不再直接崩
+- v1.4.2：`refreshImgUrl` 探活机制——官方 `/setting` API 返回的 `img_host` 先 HEAD 探活（200 才采用），死域自动落到 9 域静态池轮换（池内全部探活通过）。根因：官方分流轮换池混着被墙死域（cdn-msp12/cdn-msp.jmdanjonproxy.xyz ECONNRESET），旧逻辑拿到就用导致整源图片全挂
+- API fallback：cdnbea.net / cdnhth.net / cdngwc.cc / cdnhth.club（云鹤提供，实测直连+mihomo 全 200）
 - url 改指本仓库（上游 venera-configs 的域名列表已过期，避免刷新回滚旧域）
-- 实测：搜索 80 结果/36 章/78 图全绿，动态刷新能拿到最新 cdnhjk.net
+- 实测：搜索 80 结果/详情/61 图全绿
+
+### mh18.js 18漫画维护记录（v2.0.0, 2026-09）
+
+- 旧域 18mh.org 整站 403（双路），新域 18mh.net 且全站换模板，旧选择器（.pb-2/.slicarda/#mangachapters）全废
+- v2.0.0 整站重写：搜索 `/comic/search/{kw}`、卡片 `ul.dx-novel-list`、章节 `/comic/chapter/{id}/{n}`、图片明文（dzuxta CDN，auth_key 签名）
+- mihomo 验证：搜索 48 / 详情 / 23 图全链路
+- 登录功能暂缺（新站认证体系未摸清）
