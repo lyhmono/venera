@@ -221,8 +221,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       if (useMonet) {
         // Material You / Monet: use the OS palette untouched so wallpaper
         // tones survive (re-seeding via FlexSeedScheme distorts them).
-        lightTheme = getThemeFromScheme(light!);
-        darkTheme = getThemeFromScheme(dark!);
+        lightTheme = getThemeFromScheme(light);
+        darkTheme = getThemeFromScheme(dark);
       } else {
         Color primary = translateColorSetting();
         lightTheme = getTheme(primary, null, null, Brightness.light);
