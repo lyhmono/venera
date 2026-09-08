@@ -278,5 +278,33 @@
     "fileName": "mangaread.js",
     "key": "mangaread",
     "version": "1.0.0"
+  },
+  {
+    "name": "鸟鸟韩漫",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/nnhanman.js",
+    "fileName": "nnhanman.js",
+    "key": "nnhanman",
+    "version": "1.0.0"
+  },
+  {
+    "name": "MissKon图集",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/misskon.js",
+    "fileName": "misskon.js",
+    "key": "misskon",
+    "version": "1.0.0"
+  },
+  {
+    "name": "Buondua图集",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/buondua.js",
+    "fileName": "buondua.js",
+    "key": "buondua",
+    "version": "1.0.0"
+  },
+  {
+    "name": "Everia图集",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/everia.js",
+    "fileName": "everia.js",
+    "key": "everia",
+    "version": "1.0.0"
   }
 ]
