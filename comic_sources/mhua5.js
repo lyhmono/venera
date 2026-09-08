@@ -5,7 +5,7 @@
 class Mhua5 extends ComicSource {
   name = "漫画屋";
   key = "mhua5";
-  version = "1.0.0";
+  version = "1.1.0";
   minAppVersion = "1.0.0";
   url = "https://www.mhua5.com";
 
@@ -28,14 +28,15 @@ class Mhua5 extends ComicSource {
       const a = links[i];
       const href = (a.attributes && a.attributes.href) || "";
       const m = href.match(/\/comic\/([a-z0-9-]+)/i);
-      if (!m || href.indexOf("category") >= 0) continue;
+      if (!m || href.indexOf("category") >= 0 || href.indexOf("author") >= 0 || href.indexOf("user") >= 0) continue;
       const slug = m[1];
-      if (seen[slug]) continue;
+      if (slug === "add" || seen[slug]) continue;
       const img = a.querySelector("img");
       let title = "";
       const tEl = a.querySelector(".comic-name, h3, p");
       if (tEl) title = tEl.text.trim();
       if (!title && a.attributes && a.attributes.title) title = a.attributes.title.trim();
+      if (!title && img && img.attributes && img.attributes.alt) title = img.attributes.alt.trim();
       let cover = "";
       if (img && img.attributes) cover = img.attributes["data-original"] || img.attributes.src || "";
       if (!title || !cover || cover.indexOf("http") !== 0) continue;
@@ -47,12 +48,14 @@ class Mhua5 extends ComicSource {
 
   explore = [
     {
-      title: "最近更新",
+      title: "热门推荐",
       type: "multiPageComicList",
       load: async (page) => {
-        const res = await Network.get(Mhua5.WEB + "/index.php/custom/update" + (page > 1 ? "/" + page : ""), { headers: this.headers });
+        // 2026-09: /custom/update 等列表页是 Vue 壳（SSR 无卡片），只有首页是服务端渲染
+        if (page > 1) return { comics: [], maxPage: 1 };
+        const res = await Network.get(Mhua5.WEB + "/", { headers: this.headers });
         if (res.status !== 200) throw "HTTP " + res.status;
-        return { comics: this.parseCards(res.body), maxPage: 100 };
+        return { comics: this.parseCards(res.body), maxPage: 1 };
       }
     }
   ];

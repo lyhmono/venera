@@ -34,11 +34,11 @@ https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/index.json
 | miaoqu.js 妙趣漫画 | ✅ | 无搜索接口；slug/URL 直进 + 首页/分类池匹配；图片走站点 jsjiami 解密（2026-09 修复 document stub 覆盖问题） |
 | sqmh.js 神奇漫画 | ✅ | 一次元移植（sqmh.app/Next.js）；真搜索 24 结果/21 章/87 图全链路 |
 | wuqian.js 武芊漫画 | ✅ | 一次元移植（mkzcdn 纯 API）；真搜索 18 结果/15 章/10 图 |
-| mh1234m.js 漫画1234 | ✅ | 一次元移植（m.wmh1234.com）；真搜索 18 结果/284 章/21 图；/go/ 中转页跳 reader 图床 |
+| mh1234m.js 漫画1234 | ✅ | 一次元移植（m.wmh1234.com）；真搜索 18 结果/284 章/21 图；/go/ 中转页跳 reader 图床（v1.1 适配站点 mint-* 新模板，a[data-chapter-id] 章节） |
 | mh250.js 250漫画 | ✅ | 一次元移植（mh250.com）；搜索路径动态轮换（b41→ae6→6fb，源内自动提取 msearchurl）；100 结果/8 章/6 图 |
 | mhjia.js 漫画家 | ✅ | 一次元移植（mhjia.com，韩漫为主）；mihomo 代理验证 20 结果/15 章/51 图；⚠️ 站点掐数据中心 IP，家宽网络直接用 |
 | mh92.js 92漫画 | ✅ | 一次元移植（www.92mh.com）；h5 站图片明文；38 结果/6 章/3 图 |
-| mhua5.js 漫画屋 | ✅ | 一次元移植（mhua5.com/mccms）；oss.mkzcdn 图床；30 结果/2 章/10 图 |
+| mhua5.js 漫画屋 | ✅ | 一次元移植（mhua5.com/mccms）；oss.mkzcdn 图床；30 结果/2 章/10 图（v1.1 探索改首页 SSR，列表页是 Vue 壳） |
 | dingmanhua.js 顶漫画 | ✅ | 一次元移植（dingmanhua.com）；阅读页内联 JS 拼图片 URL（pasd+i.webp）；23 结果/24 章/34 图 |
 | mangaread.js MangaRead | ✅ | 一次元移植（mangaread.org/wp-manga 英语站）；12 结果/39 章/53 图 |
 | nnhanman.js 鸟鸟韩漫 | ✅ | 一次元移植（nnhm95+nnhanman5 双域自动切换）；mihomo 验证 18 结果/7 章/147 图 |

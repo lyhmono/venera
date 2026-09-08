@@ -5,7 +5,7 @@
 class Mh1234 extends ComicSource {
   name = "漫画1234";
   key = "mh1234m";
-  version = "1.0.0";
+  version = "1.1.0";
   minAppVersion = "1.0.0";
   url = "https://m.wmh1234.com";
 
@@ -89,27 +89,38 @@ class Mh1234 extends ComicSource {
       const html = res.body;
       const doc = new HtmlDocument(html);
 
-      const titleM = html.match(/og:title" content="([^"]+)"/) || html.match(/<h1[^>]*>([^<]+)<\/h1>/);
+      // 2026-09 站点改版: mint-* 新模板
+      const titleM = html.match(/id="mintWorkTitle"[^>]*>([^<]+)</) || html.match(/og:title" content="([^"]+)"/) || html.match(/<h1[^>]*>([^<]+)<\/h1>/);
       let title = titleM ? titleM[1].trim() : id;
       title = title.replace(/\s*-\s*漫画1234网$/, "");
-      const coverM = html.match(/(https?:\/\/[^"\s]*images\/cover\/[^"\s]+)/) || html.match(/og:image" content="([^"]+)"/);
+      const coverM = html.match(/class="mint-work-cover"[^>]*src="([^"]+)"/) || html.match(/(https?:\/\/[^"\s]*images\/cover\/[^"\s]+)/) || html.match(/og:image" content="([^"]+)"/);
       let cover = coverM ? coverM[1] : "";
       if (cover && cover.indexOf("http") !== 0) cover = Mh1234.WEB + cover;
 
-      // 简介
-      let description = "";
-      const descM = html.match(/class="comic-detail__desc[^"]*"[^>]*>([\s\S]*?)<\/div>/);
-      if (descM) description = descM[1].replace(/<[^>]+>/g, "").trim();
-      if (!description) {
-        const metaM = html.match(/og:description" content="([^"]+)"/);
-        if (metaM) description = metaM[1];
-      }
+      // 作者: mint-work-info 里 "xx 著"
+      let subtitle = "";
+      const auM = html.match(/id="mintWorkTitle">[^<]*<\/h2><p>([^<]*?)\s*著<\/p>/);
+      if (auM) subtitle = auM[1].trim();
 
-      // 章节: .chapter-item / chapter-list 里 /go/ 链接
+      // 简介（og:description 是站点通用文案, 弃用; 找 mint 详情区）
+      let description = "";
+      const descM = html.match(/class="mint-detail-desc[^"]*"[^>]*>([\s\S]*?)<\/div>/) || html.match(/class="comic-detail__desc[^"]*"[^>]*>([\s\S]*?)<\/div>/);
+      if (descM) description = descM[1].replace(/<[^>]+>/g, "").trim();
+
+      // 标签: mint-tag / 分类词
+      const tags = {};
+      const tagList = [];
+      const tgM = html.match(/<p>([^<]*(?:热血|少年|少女|玄幻|恋爱|冒险|搞笑|奇幻|悬疑|科幻|武侠|历史|战争|机战|运动|音乐|美食|治愈|萌系|青春|日常|架空|武侠|仙侠|修真|都市|总裁|古风|恐怖|惊悚|犯罪|推理|励志|教育|职场|战争|军旅|校园|格斗|侦探|穿越|重生|系统|后宫|百合|耽美|魔幻|魔法|异世界|丧尸|怪物|神话|传说|寓言|传记|纪实|散文|绘本|插画|写真|cosplay|Cosplay)[^<]*)<\/p>/i);
+      if (tgM) {
+        tgM[1].split(/\s+/).forEach((t) => { t = t.trim(); if (t && tagList.indexOf(t) < 0) tagList.push(t); });
+      }
+      if (tagList.length) tags["分类"] = tagList;
+
+      // 章节: a[data-chapter-id] href=/go/{code}（2026-09 新模板, DOM 顺序最新在前）
       const chapters = {};
       const seen = {};
-      const items = doc.querySelectorAll(".chapter-list a, .chapter-item a, a.chapter-item");
       const order = [];
+      const items = doc.querySelectorAll("a[data-chapter-id]");
       for (let i = 0; i < items.length; i++) {
         const a = items[i];
         const href = (a.attributes && a.attributes.href) || "";
@@ -119,12 +130,25 @@ class Mh1234 extends ComicSource {
         seen[goCode] = true;
         order.push({ code: goCode, title: a.text.trim() });
       }
+      // 兜底: 旧模板 .chapter-item（站点若回滚仍可用）
+      if (!order.length) {
+        const items2 = doc.querySelectorAll(".chapter-list a, .chapter-item a, a.chapter-item");
+        for (let i = 0; i < items2.length; i++) {
+          const a = items2[i];
+          const href = (a.attributes && a.attributes.href) || "";
+          if (href.indexOf("/go/") !== 0) continue;
+          const goCode = href.slice(4);
+          if (seen[goCode]) continue;
+          seen[goCode] = true;
+          order.push({ code: goCode, title: a.text.trim() });
+        }
+      }
       // 页面 DOM 顺序是最新在前，反转
       for (let i = order.length - 1; i >= 0; i--) {
         chapters["c" + order[i].code] = order[i].title || ("第" + (order.length - i) + "话");
       }
 
-      return { title, subtitle: "", cover, description, tags: {}, chapters };
+      return { title, subtitle, cover, description, tags, chapters };
     },
 
     loadEp: async (comicId, epId) => {
