@@ -250,5 +250,33 @@
     "fileName": "mhjia.js",
     "key": "mhjia",
     "version": "1.0.0"
+  },
+  {
+    "name": "92漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/mh92.js",
+    "fileName": "mh92.js",
+    "key": "mh92",
+    "version": "1.0.0"
+  },
+  {
+    "name": "漫画屋",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/mhua5.js",
+    "fileName": "mhua5.js",
+    "key": "mhua5",
+    "version": "1.0.0"
+  },
+  {
+    "name": "顶漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/dingmanhua.js",
+    "fileName": "dingmanhua.js",
+    "key": "dingmanhua",
+    "version": "1.0.0"
+  },
+  {
+    "name": "MangaRead",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/mangaread.js",
+    "fileName": "mangaread.js",
+    "key": "mangaread",
+    "version": "1.0.0"
   }
 ]
