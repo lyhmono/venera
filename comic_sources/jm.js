@@ -7,7 +7,7 @@ class JM extends ComicSource {
     // unique id of the source
     key = "jm"
 
-    version = "1.4.0"
+    version = "1.4.1"
 
     minAppVersion = "1.5.0"
 
@@ -15,16 +15,36 @@ class JM extends ComicSource {
 
     static jmPkgName = "com.example.app"
 
-    // update url
-    url = "https://cdn.jsdelivr.net/gh/venera-app/venera-configs@main/jm.js"
+    // update url — 指向本仓库维护版（上游 venera-configs 域名已过期, 刷新不回滚）
+    url = "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/jm.js"
 
     dailyCheckInInProgress = false
 
+    // 2026-09 更新: 官方新 API 分流（实测直连+mihomo 全 200）
     static fallbackServers = [
-        "www.cdntwice.org",
-        "www.cdnsha.org",
-        "www.cdnaspa.cc",
-        "www.cdnntr.cc",
+        "www.cdnbea.net",
+        "www.cdnhth.net",
+        "www.cdngwc.cc",
+        "www.cdnhth.club",
+    ];
+
+    // 静态兜底: 未刷新域名前 baseUrl 也能用
+    static apiDomains = [
+        "www.cdnbea.net",
+        "www.cdnhth.net",
+        "www.cdngwc.cc",
+        "www.cdnhth.club",
+    ];
+
+    // 2026-09 更新: 官方新图片分流池（实测 6/9 通, 死域已剔除:
+    // cdn-msp.jmapiproxy3.net / cdn-msp2.jmapiproxyl.cc / cdn-msp.jmapiproxyl.cc）
+    static imageDomains = [
+        "https://cdn-msp.jmapinodeudzn.net",
+        "https://cdn-msp3.jmdanjonproxy.vip",
+        "https://cdn-msp3.jmapinodeudzn.net",
+        "https://cdn-msp2.jmapinodeudzn.net",
+        "https://cdn-msp2.jmapiproxy2.cc",
+        "https://cdn-msp.jmapiproxy2.cc",
     ];
 
     static imageUrl = "https://cdn-msp.jmapinodeudzn.net"
@@ -185,15 +205,26 @@ class JM extends ComicSource {
      */
     async refreshImgUrl(showMessage) {
         let index = this.loadSetting('imageStream')
-        let res = await this.get(
-            `${this.baseUrl}/setting?app_img_shunt=${index}&express=`
-        )
-        let setting = JSON.parse(res)
-        if (setting["img_host"]) {
-            if (showMessage) {
-                UI.showMessage(`Image Stream ${index}:\n${setting["img_host"]}`)
+        try {
+            let res = await this.get(
+                `${this.baseUrl}/setting?app_img_shunt=${index}&express=`
+            )
+            let setting = JSON.parse(res)
+            if (setting["img_host"]) {
+                if (showMessage) {
+                    UI.showMessage(`Image Stream ${index}:\n${setting["img_host"]}`)
+                }
+                this.overwriteImgUrl(setting["img_host"])
+                return
             }
-            this.overwriteImgUrl(setting["img_host"])
+        } catch (e) { /* API 失败走兜底池 */ }
+        // 2026-09: API 拿不到 img_host 时从实测可用图片池轮换兜底
+        if (JM.imageDomains && JM.imageDomains.length) {
+            JM._imgIdx = ((JM._imgIdx || 0) + 1) % JM.imageDomains.length
+            this.overwriteImgUrl(JM.imageDomains[JM._imgIdx])
+            if (showMessage) {
+                UI.showMessage(`Image Stream fallback:\n${JM.imageUrl}`)
+            }
         }
     }
 

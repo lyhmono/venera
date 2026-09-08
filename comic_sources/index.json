@@ -60,7 +60,7 @@
     "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/jm.js",
     "fileName": "jm.js",
     "key": "jm",
-    "version": "1.4.0"
+    "version": "1.4.1"
   },
   {
     "name": "MangaDex",
@@ -305,6 +305,13 @@
     "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/everia.js",
     "fileName": "everia.js",
     "key": "everia",
+    "version": "1.0.0"
+  },
+  {
+    "name": "x漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/xmanhua.js",
+    "fileName": "xmanhua.js",
+    "key": "xmanhua",
     "version": "1.0.0"
   }
 ]

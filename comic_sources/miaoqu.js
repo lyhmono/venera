@@ -258,17 +258,14 @@ class Miaoqu extends ComicSource {
       if (typeof g.$ !== "function") {
         g.$ = function() { return { length: 0 }; };
       }
-      if (!g.document) {
-        g.document = {
-          querySelector: function() { return null; },
-          querySelectorAll: function() { return []; },
-          createElement: function() { return { addEventListener: function(){}, onload: null, src: "" }; },
-          documentElement: { clientHeight: 800, scrollTop: 0 },
-          body: { scrollTop: 0 },
-          addEventListener: function(){},
-          head: { appendChild: function(){} }
-        };
-      }
+      if (!g.document) g.document = {};
+      if (!g.document.querySelector) g.document.querySelector = function() { return null; };
+      if (!g.document.querySelectorAll) g.document.querySelectorAll = function() { return []; };
+      if (!g.document.createElement) g.document.createElement = function() { return { addEventListener: function(){}, onload: null, src: "" }; };
+      if (!g.document.documentElement) g.document.documentElement = { clientHeight: 800, scrollTop: 0 };
+      if (!g.document.body) g.document.body = { scrollTop: 0 };
+      if (!g.document.addEventListener) g.document.addEventListener = function(){};
+      if (!g.document.head) g.document.head = { appendChild: function(){} };
       if (!g.window.document) g.window.document = g.document;
       if (typeof g.Image !== "function") { g.Image = function() { this.onload = null; this.src = ""; }; }
       if (typeof g.navigator === "undefined") { g.navigator = { userAgent: UA_MOBILE }; }
