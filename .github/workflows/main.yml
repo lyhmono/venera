@@ -115,6 +115,7 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
           name: apks
@@ -135,7 +136,13 @@ jobs:
         run: rm -f outputs/*debug*
       - name: Resolve release tag from pubspec version
         id: ver
-        run: echo "tag=v$(grep '^version:' pubspec.yaml | awk '{print $2}' | cut -d+ -f1)" >> "$GITHUB_OUTPUT"
+        run: |
+          VER=$(grep '^version:' pubspec.yaml | awk '{print $2}' | cut -d+ -f1)
+          if [ -z "$VER" ]; then
+            echo "failed to resolve version from pubspec.yaml" >&2
+            exit 1
+          fi
+          echo "tag=v${VER}" >> "$GITHUB_OUTPUT"
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.ver.outputs.tag }}
