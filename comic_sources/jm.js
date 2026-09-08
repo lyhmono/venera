@@ -7,7 +7,7 @@ class JM extends ComicSource {
     // unique id of the source
     key = "jm"
 
-    version = "1.4.1"
+    version = "1.4.2"
 
     minAppVersion = "1.5.0"
 
@@ -36,15 +36,19 @@ class JM extends ComicSource {
         "www.cdnhth.club",
     ];
 
-    // 2026-09 更新: 官方新图片分流池（实测 6/9 通, 死域已剔除:
-    // cdn-msp.jmapiproxy3.net / cdn-msp2.jmapiproxyl.cc / cdn-msp.jmapiproxyl.cc）
+    // 2026-09 v1.4.2 更新: 官方新图片分流池（全部实测通过 HEAD 探活, 死域已剔除:
+    // cdn-msp12.jmdanjonproxy.xyz / cdn-msp.jmdanjonproxy.xyz — ECONNRESET;
+    // cdn-msp.jmapiproxy3.net / cdn-msp2.jmapiproxyl.cc / cdn-msp.jmapiproxyl.cc — 旧死域）
     static imageDomains = [
         "https://cdn-msp.jmapinodeudzn.net",
-        "https://cdn-msp3.jmdanjonproxy.vip",
         "https://cdn-msp3.jmapinodeudzn.net",
         "https://cdn-msp2.jmapinodeudzn.net",
-        "https://cdn-msp2.jmapiproxy2.cc",
+        "https://cdn-msp2.jmapiproxy3.cc",
+        "https://cdn-msp3.jmapiproxy1.cc",
         "https://cdn-msp.jmapiproxy2.cc",
+        "https://cdn-msp2.jmapiproxy2.cc",
+        "https://cdn-msp.jmdanjonproxy.vip",
+        "https://cdn-msp3.jmdanjonproxy.vip",
     ];
 
     static imageUrl = "https://cdn-msp.jmapinodeudzn.net"
@@ -200,7 +204,23 @@ class JM extends ComicSource {
     }
 
     /**
-     *
+     * 图片域名探活: HEAD 根路径, 200 = 活
+     */
+    async isImgHostAlive(host) {
+        try {
+            let res = await Network.sendRequest('HEAD', `${host}/`, {
+                "User-Agent": this.ua,
+                "Referer": "https://localhost/",
+                "X-Requested-With": JM.jmPkgName,
+                "Accept": "*/*",
+            });
+            return res.status === 200;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    /**
      * @param showMessage {boolean}
      */
     async refreshImgUrl(showMessage) {
@@ -211,20 +231,32 @@ class JM extends ComicSource {
             )
             let setting = JSON.parse(res)
             if (setting["img_host"]) {
-                if (showMessage) {
-                    UI.showMessage(`Image Stream ${index}:\n${setting["img_host"]}`)
+                // v1.4.2: API 域名先探活再采用——官方分流轮换池里混着被墙的死域,
+                // 直接采用会导致所有图片加载失败
+                if (await this.isImgHostAlive(setting["img_host"])) {
+                    if (showMessage) {
+                        UI.showMessage(`Image Stream ${index}:\n${setting["img_host"]}`)
+                    }
+                    this.overwriteImgUrl(setting["img_host"])
+                    return
                 }
-                this.overwriteImgUrl(setting["img_host"])
-                return
             }
         } catch (e) { /* API 失败走兜底池 */ }
         // 2026-09: API 拿不到 img_host 时从实测可用图片池轮换兜底
         if (JM.imageDomains && JM.imageDomains.length) {
-            JM._imgIdx = ((JM._imgIdx || 0) + 1) % JM.imageDomains.length
-            this.overwriteImgUrl(JM.imageDomains[JM._imgIdx])
-            if (showMessage) {
-                UI.showMessage(`Image Stream fallback:\n${JM.imageUrl}`)
+            // v1.4.2: 兜底池轮换前先探活, 避免轮换到死域
+            for (let i = 0; i < JM.imageDomains.length; i++) {
+                JM._imgIdx = ((JM._imgIdx || 0) + 1) % JM.imageDomains.length
+                const candidate = JM.imageDomains[JM._imgIdx]
+                if (await this.isImgHostAlive(candidate)) {
+                    this.overwriteImgUrl(candidate)
+                    if (showMessage) {
+                        UI.showMessage(`Image Stream fallback:\n${JM.imageUrl}`)
+                    }
+                    return
+                }
             }
+            // 全死则保持当前 imageUrl 不变, 避免越改越糟
         }
     }
 
