@@ -175,6 +175,32 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     );
   }
 
+  /// Build theme from the OS-provided dynamic color scheme (Material You /
+  /// Monet). Unlike [getTheme], this keeps the system palette as-is —
+  /// re-seeding it would distort the tones the wallpaper engine produced.
+  ThemeData getThemeFromScheme(ColorScheme scheme) {
+    String? font;
+    List<String>? fallback;
+    if (App.isLinux || App.isWindows) {
+      font = 'Noto Sans CJK';
+      fallback = [
+        'Segoe UI',
+        'Noto Sans SC',
+        'Noto Sans TC',
+        'Noto Sans',
+        'Microsoft YaHei',
+        'PingFang SC',
+        'Arial',
+        'sans-serif'
+      ];
+    }
+    return ThemeData(
+      colorScheme: scheme,
+      fontFamily: font,
+      fontFamilyFallback: fallback,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget home;
@@ -188,23 +214,27 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       home = const MainPage();
     }
     return DynamicColorBuilder(builder: (light, dark) {
-      Color? primary, secondary, tertiary;
-      if (appdata.settings['color'] != 'system' ||
-          light == null ||
-          dark == null) {
-        primary = translateColorSetting();
+      bool useMonet = appdata.settings['color'] == 'system' &&
+          light != null &&
+          dark != null;
+      ThemeData? lightTheme, darkTheme;
+      if (useMonet) {
+        // Material You / Monet: use the OS palette untouched so wallpaper
+        // tones survive (re-seeding via FlexSeedScheme distorts them).
+        lightTheme = getThemeFromScheme(light!);
+        darkTheme = getThemeFromScheme(dark!);
       } else {
-        primary = light.primary;
-        secondary = light.secondary;
-        tertiary = light.tertiary;
+        Color primary = translateColorSetting();
+        lightTheme = getTheme(primary, null, null, Brightness.light);
+        darkTheme = getTheme(primary, null, null, Brightness.dark);
       }
       return MaterialApp(
         title: "venera",
         home: home,
         debugShowCheckedModeBanner: false,
-        theme: getTheme(primary, secondary, tertiary, Brightness.light),
+        theme: lightTheme,
         navigatorKey: App.rootNavigatorKey,
-        darkTheme: getTheme(primary, secondary, tertiary, Brightness.dark),
+        darkTheme: darkTheme,
         themeMode: switch (appdata.settings['theme_mode']) {
           'light' => ThemeMode.light,
           'dark' => ThemeMode.dark,

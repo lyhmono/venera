@@ -28,8 +28,9 @@ class _AppearanceSettingsState extends State<AppearanceSettings> {
         SelectSetting(
           title: "Theme Color".tl,
           settingKey: "color",
+          help: "Follow system dynamic color (Material You / Monet) when available. Fall back to blue if the OS does not provide a wallpaper palette.".tl,
           optionTranslation: {
-            "system": "System".tl,
+            "system": "System (Dynamic Color)".tl,
             "red": "Red".tl,
             "pink": "Pink".tl,
             "purple": "Purple".tl,
