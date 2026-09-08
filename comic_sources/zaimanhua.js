@@ -391,7 +391,9 @@ class Zaimanhua extends ComicSource {
     },
     loadEp: async (comicId, epId) => {
       const res = await Network.get(
-        this.buildUrl(`comic/chapter/${comicId}/${epId}`),
+        this.buildUrl(
+          `comic/chapter/${comicId}/${encodeURIComponent(epId)}`
+        ),
         this.headers
       );
       const data = JSON.parse(res.body).data.data;
