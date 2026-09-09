@@ -1,19 +1,5 @@
 [
   {
-    "name": "拷贝漫画",
-    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/copy_manga.js",
-    "fileName": "copy_manga.js",
-    "key": "copy_manga",
-    "version": "1.4.2"
-  },
-  {
-    "name": "拷贝漫画(多账号)",
-    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/copy_manga_multi_accounts.js",
-    "fileName": "copy_manga_multi_accounts.js",
-    "key": "copy_manga",
-    "version": "1.4.1"
-  },
-  {
     "name": "Komiic",
     "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/komiic.js",
     "fileName": "komiic.js",

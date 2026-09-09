@@ -1,8 +1,8 @@
 # Venera 漫画源合集
 
-45 个源，全部经沙箱 + 双网络环境（容器直连 / mihomo 代理）健康检查。
+43 个源，全部经沙箱 + 双网络环境（容器直连 / mihomo 代理）健康检查。
 
-> 已剔除 7 个双网络环境均不可达的死源（详见维护一节）。
+> 已剔除 9 个死源（详见维护一节）；copy_manga 双文件 2026-09-09 移除（站点半复活，搜索后端仍空转）。
 > 2026-09 新增 14 源（一次元 130 包移植）：神奇漫画 / 武芊漫画 / 漫画1234 / 250漫画 / 漫画家 / 92漫画 / 漫画屋 / 顶漫画 / MangaRead / 鸟鸟韩漫 / MissKon图集 / Buondua图集 / Everia图集 / x漫画。
 
 ## 订阅方式
@@ -47,7 +47,7 @@ https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/index.json
 | everia.js Everia图集 | ✅ | 一次元移植（日韩写真 WP 站）；japan/korea/cosplay 分区；16 结果/38 探索/21 图 |
 | xmanhua.js x漫画 | ✅ | 一次元移植（xmanhua.com 日漫繁体站）；chapterimage.ashx eval-packer 解包（纯 JS 实现）；12 结果/234 章/2 图 |
 
-### 官方池（27 个，上游 venera-app/venera-configs 镜像，2026-09-08 全量复查）
+### 官方池（25 个，上游 venera-app/venera-configs 镜像；2026-09-08 全量复查，2026-09-09 移除 copy_manga 双文件）
 
 | 源 | 状态 | 备注 |
 |---|---|---|
@@ -69,7 +69,7 @@ https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/index.json
 | baihehui.js 百合会 | 🔒 | explore 分区可达（24 卡片）；搜索跳登录页，需站点账号 |
 | manga_dex.js MangaDex | ⚠️ | explore 3 分区可达；搜索 API "Network response was not ok"（mihomo 亦然），疑似 API 演进，上游待修 |
 | ccc.js CCC追漫台 | ⚠️ | explore 24 卡片；搜索 API 500 + 返回 HTML，接口改版，上游待修 |
-| copy_manga.js / copy_manga_multi_accounts.js 拷贝漫画 | ⛔ | 全部已知域"服務器升級中"404 页；proxy 亦 404，站暂死（历史上活过，待其恢复后复查） |
+| copy_manga.js / copy_manga_multi_accounts.js 拷贝漫画 | ⛔ | 2026-09-09 已从池中移除：站点半复活（首页/详情通，搜索返回 0 结果、app API 404），不可用；彻底复活后从上游 venera-configs 恢复 |
 | picacg.js Picacg | 🔒 | API 可达但需会员登录（"Not logged in"） |
 | mh18.js 18漫画 | ✅ | v2.0.0 整站重写：18mh.org 死→18mh.net 新模板；搜索 48/详情/23 图全链路（mihomo 验证） |
 | ehentai.js | 🔒 | 无独立搜索接口（走 e-hentai 登录态逻辑）；上游设计如此 |
@@ -82,7 +82,7 @@ https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/index.json
 ## 维护
 
 - 官方池为上游 venera-app/venera-configs 的镜像，需要更新时手动 `cp` 覆盖本目录即可
-- index.json 含全部 45 源的 jsdelivr 直链
+- index.json 含全部 43 源的 jsdelivr 直链
 - 沙箱检查器：`/opt/data/check_one.js`（需 cheerio + undici），单章本与 grouped-chapters 已支持
 
 ### 已剔除的死源（2026-09 复查，双网络环境均不可达）
