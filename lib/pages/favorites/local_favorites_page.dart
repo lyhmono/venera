@@ -110,9 +110,11 @@ class _LocalFavoritesPageState extends State<_LocalFavoritesPage> {
   }
 
   List<FavoriteItem> filterComics(List<FavoriteItem> curComics) {
+    var histories = <FavoriteItem, History?>{};
     var res = curComics.where((comic) {
       var history =
           HistoryManager().find(comic.id, ComicType(comic.sourceKey.hashCode));
+      histories[comic] = history;
       if (readFilterSelect == "UnCompleted") {
         return history == null || history.page != history.maxPage;
       } else if (readFilterSelect == "Completed") {
@@ -120,19 +122,18 @@ class _LocalFavoritesPageState extends State<_LocalFavoritesPage> {
       }
       return true;
     }).toList();
-    sortComics(res);
+    sortComics(res, histories);
     return res;
   }
 
   /// 排序收藏: Recently Read = 按最近观看时间降序, 未看过的排最后
-  void sortComics(List<FavoriteItem> res) {
+  void sortComics(List<FavoriteItem> res, Map<FavoriteItem, History?> histories) {
     if (sortSelect == "Recently Read") {
       var read = <FavoriteItem>[];
       var unread = <FavoriteItem>[];
       var times = <FavoriteItem, DateTime>{};
       for (var comic in res) {
-        var history = HistoryManager()
-            .find(comic.id, ComicType(comic.sourceKey.hashCode));
+        var history = histories[comic];
         if (history != null) {
           read.add(comic);
           times[comic] = history.time;
