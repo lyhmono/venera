@@ -83,7 +83,7 @@ Future<bool> checkUpdate() async {
   // release, which made freshly-updated installs report "update available".
   var res = await AppDio().get(
     "https://api.github.com/repos/lyhmono/venera/releases/latest",
-    options: dio.Options(
+    options: Options(
       headers: {
         "Accept": "application/vnd.github+json",
         // bypass the app-level network cache (5s/2h ETag revalidate)
