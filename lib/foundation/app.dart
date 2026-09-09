@@ -18,7 +18,7 @@ class _App {
   /// with pubspec.yaml `version:` when building locally.
   final version = String.fromEnvironment(
     "APP_VERSION",
-    defaultValue: "1.6.5",
+    defaultValue: "1.6.6",
   );
 
   bool get isAndroid => Platform.isAndroid;
