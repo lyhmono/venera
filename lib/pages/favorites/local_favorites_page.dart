@@ -456,6 +456,24 @@ class _LocalFavoritesPageState extends State<_LocalFavoritesPage> {
                       icon: Icons.reorder,
                       text: "Reorder".tl,
                       onClick: () {
+                        if (sortSelect != "Default") {
+                          showConfirmDialog(
+                            context: App.rootContext,
+                            title: "Warning".tl,
+                            content:
+                                "Sort is set to @s. Reordering applies to the default order and would be hidden by the current sort. Switch to Default first?"
+                                    .tlParams({"s": sortSelect.tl}),
+                            onConfirm: () {
+                              sortSelect = "Default";
+                              appdata.implicitData["local_favorites_sort"] =
+                                  "Default";
+                              appdata.writeImplicitData();
+                              updateComics();
+                              setState(() {});
+                            },
+                          );
+                          return;
+                        }
                         context.to(
                           () {
                             return _ReorderComicsPage(
