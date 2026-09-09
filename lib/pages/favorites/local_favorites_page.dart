@@ -46,6 +46,8 @@ class _LocalFavoritesPageState extends State<_LocalFavoritesPage> {
 
   late String readFilterSelect;
 
+  late String sortSelect;
+
   var searchResults = <FavoriteItem>[];
 
   void updateSearchResult() {
@@ -108,7 +110,7 @@ class _LocalFavoritesPageState extends State<_LocalFavoritesPage> {
   }
 
   List<FavoriteItem> filterComics(List<FavoriteItem> curComics) {
-    return curComics.where((comic) {
+    var res = curComics.where((comic) {
       var history =
           HistoryManager().find(comic.id, ComicType(comic.sourceKey.hashCode));
       if (readFilterSelect == "UnCompleted") {
@@ -118,6 +120,38 @@ class _LocalFavoritesPageState extends State<_LocalFavoritesPage> {
       }
       return true;
     }).toList();
+    sortComics(res);
+    return res;
+  }
+
+  /// 排序收藏: Recently Read = 按最近观看时间降序, 未看过的排最后
+  void sortComics(List<FavoriteItem> res) {
+    if (sortSelect == "Recently Read") {
+      var read = <FavoriteItem>[];
+      var unread = <FavoriteItem>[];
+      var times = <FavoriteItem, DateTime>{};
+      for (var comic in res) {
+        var history = HistoryManager()
+            .find(comic.id, ComicType(comic.sourceKey.hashCode));
+        if (history != null) {
+          read.add(comic);
+          times[comic] = history.time;
+        } else {
+          unread.add(comic);
+        }
+      }
+      read.sort((a, b) => times[b]!.compareTo(times[a]!));
+      res
+        ..clear()
+        ..addAll(read)
+        ..addAll(unread);
+      return;
+    }
+    if (sortSelect == "Name") {
+      res.sort((a, b) => a.name.compareTo(b.name));
+    } else if (sortSelect == "Name Desc") {
+      res.sort((a, b) => b.name.compareTo(a.name));
+    }
   }
 
   bool matchKeyword(String keyword, FavoriteItem comic) {
@@ -180,6 +214,8 @@ class _LocalFavoritesPageState extends State<_LocalFavoritesPage> {
   void initState() {
     readFilterSelect = appdata.implicitData["local_favorites_read_filter"] ??
         readFilterList[0];
+    sortSelect = appdata.implicitData["local_favorites_sort"] ??
+        localFavoriteSortList[0];
     favPage = context.findAncestorStateOfType<_FavoritesPageState>()!;
     if (!isAllFolder) {
       var (a, b) = LocalFavoritesManager().findLinked(widget.folder);
@@ -361,9 +397,11 @@ class _LocalFavoritesPageState extends State<_LocalFavoritesPage> {
                       builder: (context) {
                         return _LocalFavoritesFilterDialog(
                           initReadFilterSelect: readFilterSelect,
-                          updateConfig: (readFilter) {
+                          initSortSelect: sortSelect,
+                          updateConfig: (readFilter, sortFilter) {
                             setState(() {
                               readFilterSelect = readFilter;
+                              sortSelect = sortFilter;
                             });
                             updateComics();
                           },
@@ -1151,10 +1189,12 @@ class _SelectUpdatePageNumState extends State<_SelectUpdatePageNum> {
 class _LocalFavoritesFilterDialog extends StatefulWidget {
   const _LocalFavoritesFilterDialog({
     required this.initReadFilterSelect,
+    required this.initSortSelect,
     required this.updateConfig,
   });
 
   final String initReadFilterSelect;
+  final String initSortSelect;
   final Function updateConfig;
 
   @override
@@ -1164,10 +1204,18 @@ class _LocalFavoritesFilterDialog extends StatefulWidget {
 
 const readFilterList = ['All', 'UnCompleted', 'Completed'];
 
+const localFavoriteSortList = [
+  'Default',
+  'Recently Read',
+  'Name',
+  'Name Desc',
+];
+
 class _LocalFavoritesFilterDialogState
     extends State<_LocalFavoritesFilterDialog> {
-  List<String> optionTypes = ['Filter'];
+  List<String> optionTypes = ['Filter', 'Sort'];
   late var readFilter = widget.initReadFilterSelect;
+  late var sortFilter = widget.initSortSelect;
   @override
   Widget build(BuildContext context) {
     Widget tabBar = Material(
@@ -1201,6 +1249,23 @@ class _LocalFavoritesFilterDialogState
                     ),
                   )
                 ],
+              ),
+              Column(
+                children: [
+                  ListTile(
+                    title: Text("Sort".tl),
+                    trailing: Select(
+                      current: sortFilter.tl,
+                      values: localFavoriteSortList.map((e) => e.tl).toList(),
+                      minWidth: 96,
+                      onTap: (index) {
+                        setState(() {
+                          sortFilter = localFavoriteSortList[index];
+                        });
+                      },
+                    ),
+                  )
+                ],
               )
             ]),
           ],
@@ -1210,10 +1275,11 @@ class _LocalFavoritesFilterDialogState
         FilledButton(
           onPressed: () {
             appdata.implicitData["local_favorites_read_filter"] = readFilter;
+            appdata.implicitData["local_favorites_sort"] = sortFilter;
             appdata.writeImplicitData();
             if (mounted) {
               Navigator.pop(context);
-              widget.updateConfig(readFilter);
+              widget.updateConfig(readFilter, sortFilter);
             }
           },
           child: Text("Confirm".tl),
