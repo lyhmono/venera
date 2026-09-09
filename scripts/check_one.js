@@ -18,8 +18,11 @@ function makeDocFromHtml(html) {
     if (el && el.attribs) { for (const k in el.attribs) attrs[k] = el.attribs[k]; }
     return {
       get text() { return $el.text().trim(); },
+      get innerHTML() { return $el.html(); },
+      get outerHTML() { return $.html($el); },
       get attributes() { return attrs; },
       get src() { return attrs.src || attrs['data-src'] || ''; },
+      get children() { return $el.children().toArray().map(wrapOne); },
       querySelector(q) { const r = $el.find(q).first(); return r.length ? wrapOne(r.get(0)) : null; },
       querySelectorAll(q) { return wrap2($el, q); }
     };
@@ -79,7 +82,8 @@ async function main() {
     delete(url, headers, extra) { return this.sendRequest('DELETE', url, headers, undefined, extra); },
     async fetchBytes(method, url, headers, data) {
       const h = Object.assign({ 'User-Agent': UA }, headers || {});
-      const r = await fetch(url, { method, headers: h, body: data ? Buffer.from(data) : undefined, dispatcher: PROXY_DISPATCHER });
+      // 必须用 undici 的 fetch: Node 全局 fetch 忽略 dispatcher 参数, 境外站会直连失败
+      const r = await UFETCH(url, { method, headers: h, body: data ? Buffer.from(data) : undefined, dispatcher: PROXY_DISPATCHER });
       const ab = await r.arrayBuffer();
       return { status: r.status, headers: {}, body: new Uint8Array(ab).buffer };
     },
@@ -132,6 +136,8 @@ async function main() {
     loadSetting(k) {
       if (k in settings) return settings[k];
       const def = this.settings && this.settings[k];
+      if (typeof def === 'string' || typeof def === 'number' || typeof def === 'boolean') return def;
+      // 源 init 时可能把 settings[k] 直接覆盖为裸值(如 copy_manga refreshAppApi 改 base_url)
       if (def && def.default !== undefined) return def.default;
       return null;
     }
@@ -268,12 +274,18 @@ async function main() {
     }
   }
   console.log(JSON.stringify(results));
+  globalThis.__DONE = true;
 }
 main().catch(e => { console.log(JSON.stringify({ fatal: (e.message || String(e)).slice(0, 250) })); process.exit(0); });
 process.on('uncaughtException', e => { console.log(JSON.stringify({ fatal: 'uncaught: ' + (e.message || String(e)).slice(0, 220) })); process.exit(0); });
 process.on('unhandledRejection', e => {
-  let c = e && e.cause, chain = [];
-  while (c) { chain.push((c.code || '') + ' ' + (c.message || '')); c = c.cause; }
-  console.log(JSON.stringify({ fatal: 'rejected: ' + ((e && e.message) || String(e)).slice(0, 160), causes: chain.slice(0, 3) }));
+  // 有些源 init() 里发起未 await 的探测请求(fire-and-forget), reject 属正常噪音。
+  // 若主流程尚未完成, 不抢跑退出; 主流程已完成则忽略。
+  if (!globalThis.__DONE) {
+    let c = e && e.cause, chain = [];
+    while (c) { chain.push((c.code || '') + ' ' + (c.message || '')); c = c.cause; }
+    console.error('[bg-rejection]', chain.slice(0, 2).join('; ') || (e && e.message));
+    return;
+  }
   process.exit(0);
 });

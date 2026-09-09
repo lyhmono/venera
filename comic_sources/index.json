@@ -299,5 +299,33 @@
     "fileName": "xmanhua.js",
     "key": "xmanhua",
     "version": "1.0.0"
+  },
+  {
+    "name": "拷贝漫画",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/copy_manga.js",
+    "fileName": "copy_manga.js",
+    "key": "copy_manga",
+    "version": "1.4.2"
+  },
+  {
+    "name": "拷贝漫画M",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/copy_manga_multi_accounts.js",
+    "fileName": "copy_manga_multi_accounts.js",
+    "key": "copy_manga",
+    "version": "1.4.1"
+  },
+  {
+    "name": "漫画柜",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/manhuagui.js",
+    "fileName": "manhuagui.js",
+    "key": "ManHuaGui",
+    "version": "1.2.1"
+  },
+  {
+    "name": "hitomi.la",
+    "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/hitomi.js",
+    "fileName": "hitomi.js",
+    "key": "hitomi",
+    "version": "1.1.2"
   }
 ]
