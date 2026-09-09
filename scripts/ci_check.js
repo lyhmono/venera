@@ -7,15 +7,17 @@ const { execSync } = require('child_process');
 
 const SELF_MADE = {
   // file: [class, keyword, needsProxy(跳过)]
-  'gmh.js': ['Gmh', '日常', false],
+  // 国内站：境外 IP（GitHub runner）被 403/掐，仅本地容器直连验证（CI 标 SKIP）
+  'gmh.js': ['Gmh', '日常', true],
   'guazi.js': ['Guazi', '日常', false],
   'wmanhua.js': ['Wmanhua', '日常', false],
-  'miaoqu.js': ['Miaoqu', '日常', false],
+  // 无搜索接口（slug/标题匹配型），n>0 判定不适用，仅本地验证
+  'miaoqu.js': ['Miaoqu', '日常', true],
   'sqmh.js': ['Sqmh', '日常', false],
   'wuqian.js': ['Wuqian', '日常', false],
   'mh1234m.js': ['Mh1234', '日常', false],
   'mh250.js': ['Mh250', '日常', false],
-  'mh92.js': ['Mh92', '日常', false],
+  'mh92.js': ['Mh92', '日常', true],
   'mhua5.js': ['Mhua5', '日常', false],
   'dingmanhua.js': ['Dingmanhua', '日常', false],
   'mangaread.js': ['Mangaread', 'one piece', false],
