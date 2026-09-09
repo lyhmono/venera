@@ -135,6 +135,10 @@ jobs:
         with:
           name: deb_arm64_build
           path: outputs
+      - uses: actions/download-artifact@v4
+        with:
+          name: arch_build
+          path: outputs
       - name: Collect release files (exclude debug builds)
         run: rm -f outputs/*debug*
       - name: Resolve release tag from pubspec version
