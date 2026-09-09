@@ -78,12 +78,24 @@ class _AboutSettingsState extends State<AboutSettings> {
 }
 
 Future<bool> checkUpdate() async {
-  var res = await AppDio()
-      .get("https://cdn.jsdelivr.net/gh/lyhmono/venera@master/pubspec.yaml");
+  // Ask the GitHub Releases API for the latest published release instead of
+  // reading pubspec.yaml through a CDN — the CDN cache lags behind the actual
+  // release, which made freshly-updated installs report "update available".
+  var res = await AppDio().get(
+    "https://api.github.com/repos/lyhmono/venera/releases/latest",
+    options: dio.Options(
+      headers: {
+        "Accept": "application/vnd.github+json",
+        // bypass the app-level network cache (5s/2h ETag revalidate)
+        "cache-time": "no",
+      },
+      validateStatus: (status) => status != null && status < 500,
+    ),
+  );
   if (res.statusCode == 200) {
-    var data = loadYaml(res.data);
-    if (data["version"] != null) {
-      return _compareVersion(data["version"].split("+")[0], App.version);
+    var tagName = (res.data as Map)["tag_name"] as String?;
+    if (tagName != null && tagName.startsWith("v")) {
+      return compareSemVer(tagName.substring(1), App.version);
     }
   }
   return false;
@@ -123,19 +135,4 @@ Future<void> checkUpdateUi([bool showMessageIfNoUpdate = true, bool delay = fals
   } catch (e, s) {
     Log.error("Check Update", e.toString(), s);
   }
-}
-
-/// return true if version1 > version2
-bool _compareVersion(String version1, String version2) {
-  var v1 = version1.split(".");
-  var v2 = version2.split(".");
-  for (var i = 0; i < v1.length; i++) {
-    if (int.parse(v1[i]) > int.parse(v2[i])) {
-      return true;
-    }
-    if (int.parse(v1[i]) < int.parse(v2[i])) {
-      return false;
-    }
-  }
-  return false;
 }

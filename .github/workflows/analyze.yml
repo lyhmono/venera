@@ -11,6 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Check version consistency (single source of truth)
+        run: |
+          PUBVER=$(grep '^version:' pubspec.yaml | awk '{print $2}' | cut -d+ -f1)
+          FALLBACK=$(grep -o 'defaultValue: "[^"]*"' lib/foundation/app.dart | sed 's/defaultValue: "\(.*\)"/\1/')
+          echo "pubspec: $PUBVER | app.dart fallback: $FALLBACK"
+          if [ "$PUBVER" != "$FALLBACK" ]; then
+            echo "::error::Version mismatch: pubspec.yaml has $PUBVER but lib/foundation/app.dart defaultValue is $FALLBACK. Update the defaultValue when bumping the version."
+            exit 1
+          fi
       - uses: subosito/flutter-action@v2
         with:
           channel: "stable"
