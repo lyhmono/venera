@@ -5,7 +5,7 @@
 class Mhua5 extends ComicSource {
   name = "漫画屋";
   key = "mhua5";
-  version = "1.1.0";
+  version = "1.2.0";
   minAppVersion = "1.0.0";
   url = "https://www.mhua5.com";
 
@@ -109,6 +109,12 @@ class Mhua5 extends ComicSource {
       }
       for (let i = order.length - 1; i >= 0; i--) {
         chapters["c" + order[i].id] = order[i].title || "话" + order[i].id;
+      }
+      // 站点对付费/VIP 书在未登录时隐藏章节列表（<ul> 空、按钮 href=""）——
+      // 0 章时提示用户, 避免点开没反应
+      if (order.length === 0) {
+        description = (description ? description + "\n\n" : "") +
+          "⚠️ 未获取到章节列表：该书可能为付费/VIP作品（需登录站点阅读），或已被下架。";
       }
 
       return { title, subtitle, cover, description, tags: {}, chapters };

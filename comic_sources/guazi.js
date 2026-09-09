@@ -79,7 +79,7 @@ function extractId(q) {
 class Guazi extends ComicSource {
   name = "瓜子漫画";
   key = "guazi";
-  version = "1.1.0";
+  version = "1.2.0";
   minAppVersion = "1.0.0";
   url = WEB;
 
@@ -200,17 +200,18 @@ class Guazi extends ComicSource {
       const res = await Network.get(WEB + "/chapter.php?id=" + epId, { headers: HDRS });
       if (res.status >= 400) throw "HTTP " + res.status;
       const html = res.body;
-      // 首图 URL 从 JSON-LD 拿: .../chapters/{num}/{dir}/{n}_{i}.webp
-      const firstImg = html.match(/"image":"(https:[^"]+webp)"/);
+      // 首图 URL 从 JSON-LD 拿（后缀 webp/jpg 随站点轮换, 提取实际后缀用于序列拼接）
+      const firstImg = html.match(/"image":"(https:[^"]+\.(?:webp|jpg|jpeg|png))"/);
       if (!firstImg) throw "未找到图片数据";
       const firstUrl = firstImg[1];
       // 图片总数从描述文本 "本章共N张漫画图片" 拿
       const cnt = html.match(/共(\d+)张漫画图片/);
       const total = cnt ? parseInt(cnt[1]) : 0;
       if (!total) throw "未解析到图片总数";
-      const prefix = firstUrl.replace(/_\d+\.webp$/, "");
+      const prefix = firstUrl.replace(/_\d+\.(webp|jpg|jpeg|png)$/, "");
+      const ext = (firstUrl.match(/\.(webp|jpg|jpeg|png)$/) || [,"webp"])[1];
       const images = [];
-      for (let i = 1; i <= total; i++) images.push(prefix + "_" + i + ".webp");
+      for (let i = 1; i <= total; i++) images.push(prefix + "_" + i + "." + ext);
       return { images: images };
     },
 
