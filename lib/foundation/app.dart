@@ -13,7 +13,13 @@ export "widget_utils.dart";
 export "context.dart";
 
 class _App {
-  final version = "1.6.3";
+  /// App version. Injected at build time via
+  /// `--dart-define=APP_VERSION=x.y.z` (see CI workflows); keep in sync
+  /// with pubspec.yaml `version:` when building locally.
+  final version = String.fromEnvironment(
+    "APP_VERSION",
+    defaultValue: "1.6.5",
+  );
 
   bool get isAndroid => Platform.isAndroid;
 
