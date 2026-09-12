@@ -305,14 +305,16 @@
     "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/copy_manga.js",
     "fileName": "copy_manga.js",
     "key": "copy_manga",
-    "version": "1.4.2"
+    "version": "1.4.2",
+    "description": "拷贝漫画主源。与「拷贝漫画M」共用 key，二选一安装（共享收藏历史）"
   },
   {
     "name": "拷贝漫画M",
     "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/copy_manga_multi_accounts.js",
     "fileName": "copy_manga_multi_accounts.js",
     "key": "copy_manga",
-    "version": "1.4.1"
+    "version": "1.4.1",
+    "description": "拷贝漫画多账号版（解决单账号收藏 1000 上限）。与主源共用 key，二选一安装（共享收藏历史）"
   },
   {
     "name": "漫画柜",
