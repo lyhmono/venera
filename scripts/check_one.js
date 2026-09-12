@@ -204,10 +204,26 @@ async function main() {
   if (!inst) throw '实例化失败';
   const results = { name: inst.name || '?', key: inst.key || '?', checks: [], reqs: Network._req };
 
+  // 真机语义(search_page.dart:312 useDefaultOptions): options = optionList 每项的
+  // defaultValue(= default 字段或第一个 value)。旧沙箱传 [] 导致源把 undefined 拼进 URL
+  // (manga_dex 400 / ccc 500 假红)。
+  function defaultSearchOptions() {
+    const ol = inst.search && inst.search.optionList;
+    if (!Array.isArray(ol) || !ol.length) return [];
+    return ol.map((o) => {
+      if (typeof o.default === 'string' && o.default) return o.default;
+      const first = Array.isArray(o.options) && o.options[0];
+      if (typeof first === 'string' && first.includes('-')) return first.split('-')[0];
+      if (first && typeof first === 'object' && first.value !== undefined) return String(first.value);
+      return first != null ? String(first) : '';
+    });
+  }
+  const searchOpts = defaultSearchOptions();
+
   // 跑 search
   if (inst.search && typeof inst.search.load === 'function') {
     try {
-      const r = await inst.search.load(keyword, [], 1);
+      const r = await inst.search.load(keyword, searchOpts, 1);
       const comics = r.comics || r;
       results.search = { ok: true, n: comics.length, first: comics[0] && (comics[0].title || '').slice(0, 30) };
     } catch (e) {
@@ -235,7 +251,7 @@ async function main() {
   // 若有搜索首条，试 loadInfo（只针对搜索成功且能拿 id 的）
   if (results.search.ok && results.search.n > 0) {
     try {
-      const r = await inst.search.load(keyword, [], 1);
+      const r = await inst.search.load(keyword, searchOpts, 1);
       const c = (r.comics || r)[0];
       const info = await inst.comic.loadInfo(c.id);
       let ch = info.chapters || {};
