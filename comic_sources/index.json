@@ -158,7 +158,8 @@
     "url": "https://cdn.jsdelivr.net/gh/lyhmono/venera@master/comic_sources/kavita.js",
     "fileName": "kavita.js",
     "key": "kavita",
-    "version": "1.0.0"
+    "version": "1.0.1",
+    "description": "Kavita 自托管阅读服务器源。默认服务器已更新为官方新演示站 demo.kavitareader.com（原 demo.kavita.org 已停服）"
   },
   {
     "name": "MYCOMIC",

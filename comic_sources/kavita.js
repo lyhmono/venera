@@ -4,7 +4,7 @@ class Kavita extends ComicSource {
 
     key = "kavita"
 
-    version = "1.0.0"
+    version = "1.0.1"
 
     minAppVersion = "1.4.0"
 
@@ -14,7 +14,7 @@ class Kavita extends ComicSource {
         base_url: {
             title: "服务器地址",
             type: "input",
-            default: "https://demo.kavita.org",
+            default: "https://demo.kavitareader.com",
             validator: "^(https?:\\/\\/).+$"
         },
     }
