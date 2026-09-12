@@ -71,6 +71,10 @@ String? validateFolderName(String newFolderName) {
     return "Folder name cannot be empty".tl;
   } else if (newFolderName.length > 50) {
     return "Folder name is too long".tl;
+  } else if (newFolderName.contains('"')) {
+    // folder names are interpolated into SQL DDL (create table "$name")
+    // without escaping - a double quote breaks the statement
+    return "Folder name cannot contain double quotes".tl;
   } else if (folders.contains(newFolderName)) {
     return "Folder already exists".tl;
   }
