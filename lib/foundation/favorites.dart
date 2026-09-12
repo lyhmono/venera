@@ -508,6 +508,17 @@ class LocalFavoritesManager with ChangeNotifier {
         throw "name is empty!";
       }
     }
+    // names are interpolated into SQL DDL below; a double quote breaks the
+    // statement (same guard as rename()). Programmatic callers (EhViewer /
+    // pica data import, network folders) bypass validateFolderName, so the
+    // defense must live here too.
+    if (name.contains('"')) {
+      if (renameWhenInvalidName) {
+        name = name.replaceAll('"', "'");
+      } else {
+        throw "Invalid name";
+      }
+    }
     if (existsFolder(name)) {
       if (renameWhenInvalidName) {
         var prevName = name;
